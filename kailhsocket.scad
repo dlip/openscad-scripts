@@ -1,4 +1,4 @@
-$fn=60;
+$fn=$preview ? 10 : 60;
 
 //hotswap
 cyl_h=3.05;

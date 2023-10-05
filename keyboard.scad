@@ -7,10 +7,7 @@ d = 25;
 t = 4;
 difference()
 {
-    color("green")
-    {
-        cube([ w, h, d ], center = true);
-    }
+    cube([ w, h, d ], center = true);
 
     translate([ 0, 0, t ])
     {
@@ -74,7 +71,6 @@ difference()
 
 // case
 gap = 5;
-
 union()
 {
     difference()
@@ -94,5 +90,27 @@ union()
             translate([ -w / 2, h / 2, -d / 2 ]) cube(gap * 2, center = true);
         }
         cube([ w, h, d ], center = true);
+    }
+}
+
+// lid
+difference()
+{
+    translate([ 0, 0, d / 2 + t / 2 ]) cube([ w + t * 2 + gap * 2, h + gap * 2 + t * 2, t * 2 ], center = true);
+
+    union()
+    {
+        cube([ w, h, d ], center = true);
+
+        translate([ 0, 0, t * 2 ])
+        {
+            cube([ w - t * 2, h - t * 2, d ], center = true);
+        }
+    }
+   difference()
+    {
+        translate([ 0, 0, -gap / 2 - t / 2 ])
+            cube([ w + t * 2 + gap * 2, h + gap * 2 + t * 2, d + gap + t ], center = true);
+        cube([ w + gap * 2, h + gap * 2, d + gap * 2 ], center = true);
     }
 }
