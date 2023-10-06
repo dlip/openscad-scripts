@@ -4,8 +4,8 @@ w = 85;
 h = 30;
 d = 25;
 
-t = 4;
-difference()
+t = 3;
+!difference()
 {
     cube([ w, h, d ], center = true);
 
@@ -94,7 +94,7 @@ union()
 }
 
 // lid
-difference()
+*difference()
 {
     translate([ 0, 0, d / 2 + t / 2 ]) cube([ w + t * 2 + gap * 2, h + gap * 2 + t * 2, t * 2 ], center = true);
 
