@@ -1,11 +1,85 @@
 use <kailhsocket.scad>
 
-w = 95;
-h = 35;
+w = 20;
+h = 40;
 d = 30;
 
 t = 3;
-!difference()
+
+module column(left_side = false, right_side = false)
+{
+    difference()
+    {
+        cube([ w, h, d ], center = true);
+
+        translate([ 0, 0, t ])
+        {
+            cube([ w, h - t * 2, d ], center = true);
+        }
+
+        translate([ 0, 0, -d / 2 + t ])
+        {
+            kailh_choc_socket();
+        }
+
+        rotate([ 90, 0, 0 ])
+        {
+            translate([ 0, 4, -h / 2 + t ])
+            {
+                kailh_choc_socket();
+            }
+        }
+
+        rotate([ -90, 0, 0 ])
+        {
+            translate([ 0, -4, -h / 2 + t ])
+            {
+                kailh_choc_socket();
+            }
+        }
+    }
+    side_offset = 7;
+    if (left_side)
+    {
+        difference()
+        {
+            translate([ -w / 2 - t / 2 - side_offset / 2, 0, 0 ]) cube([ t + side_offset, h, d ], center = true);
+            translate([ -w / 2 - side_offset / 2, 0, t  ]) cube([ side_offset, h - t * 2, d ], center = true);
+            #rotate([ 90, 0, 90 ])
+            {
+                translate([ 0, 4, -w / 2 - side_offset ])
+                {
+                    kailh_choc_socket();
+                }
+            }
+        }
+    }
+    if (right_side)
+    {
+        difference()
+        {
+            translate([ w / 2 + t / 2 + side_offset / 2, 0, 0 ]) cube([ t + side_offset, h, d ], center = true);
+            translate([ w / 2 + side_offset / 2, 0, t  ]) cube([ side_offset, h - t * 2, d ], center = true);
+            #rotate([ -90, 180, 90 ])
+            {
+                translate([ 0, 4, -w / 2 - side_offset ])
+                {
+                    kailh_choc_socket();
+                }
+            }
+        }
+    }
+}
+
+!union()
+{
+    column(left_side = true);
+    translate([ w, 0, -5 ]) column();
+    translate([ w * 2, 0, 0 ]) column();
+    translate([ w * 3, 0, 5 ]) column(right_side = true);
+}
+
+difference()
 {
     cube([ w, h, d ], center = true);
 
