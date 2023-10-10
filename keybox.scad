@@ -6,15 +6,15 @@ d = 30;
 
 t = 3;
 
-module column(left_side = false, right_side = false)
+module column(left_side = false, right_side = false, extend_base = 0, extend_top = 0)
 {
     difference()
     {
-        cube([ w, h, d ], center = true);
+        translate([0,0,-extend_base / 2 + extend_top / 2]) cube([ w, h, d + extend_base + extend_top ], center = true);
 
-        translate([ 0, 0, t ])
+        translate([ 0, 0, t + extend_top / 2 ])
         {
-            cube([ w, h - t * 2, d ], center = true);
+            cube([ w, h - t * 2, d + extend_top ], center = true);
         }
 
         translate([ 0, 0, -d / 2 + t ])
@@ -43,9 +43,9 @@ module column(left_side = false, right_side = false)
     {
         difference()
         {
-            translate([ -w / 2 - t / 2 - side_offset / 2, 0, 0 ]) cube([ t + side_offset, h, d ], center = true);
-            translate([ -w / 2 - side_offset / 2, 0, t  ]) cube([ side_offset, h - t * 2, d ], center = true);
-            #rotate([ 90, 0, 90 ])
+            translate([ -w / 2 - t / 2 - side_offset / 2, 0, -extend_base / 2 + extend_top / 2]) cube([ t + side_offset, h, d + extend_base + extend_top ], center = true);
+            translate([ -w / 2 - side_offset / 2, 0, t  + extend_top / 2 ]) cube([ side_offset, h - t * 2, d + extend_top ], center = true);
+            rotate([ 90, 0, 90 ])
             {
                 translate([ 0, 4, -w / 2 - side_offset ])
                 {
@@ -58,7 +58,7 @@ module column(left_side = false, right_side = false)
     {
         difference()
         {
-            translate([ w / 2 + t / 2 + side_offset / 2, 0, 0 ]) cube([ t + side_offset, h, d ], center = true);
+            translate([ w / 2 + t / 2 + side_offset / 2, 0, -extend_base/2 ]) cube([ t + side_offset, h, d + extend_base ], center = true);
             translate([ w / 2 + side_offset / 2, 0, t  ]) cube([ side_offset, h - t * 2, d ], center = true);
             #rotate([ -90, 180, 90 ])
             {
@@ -73,10 +73,10 @@ module column(left_side = false, right_side = false)
 
 !union()
 {
-    column(left_side = true);
-    translate([ w, 0, -5 ]) column();
-    translate([ w * 2, 0, 0 ]) column();
-    translate([ w * 3, 0, 5 ]) column(right_side = true);
+    column(left_side = true, extend_base=5, extend_top=5);
+    translate([ w, 0, -5 ]) column(extend_top=10);
+    translate([ w * 2, 0, 0 ]) column(extend_base=5, extend_top=5);
+    translate([ w * 3, 0, 5 ]) column(right_side = true, extend_base=10);
 }
 
 difference()

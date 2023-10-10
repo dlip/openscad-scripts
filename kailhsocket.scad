@@ -76,22 +76,23 @@ module kailh_choc_socket()
     tolerance = 0.2;
     union()
     {
-#translate([ 0, 0, -0.4 + tolerance / 2 ]) cube([ 13.6 + tolerance, 13.8 + tolerance, 0.8 - tolerance ], center = true);
+        translate([ 0, 0, -0.4 + tolerance / 2 ])
+            cube([ 13.6 + tolerance, 13.8 + tolerance, 0.8 - tolerance ], center = true);
         % translate([ -3, 3, 0 ]) text("↑", size = 5);
         // keycap
         % translate([ 0, 0, 5 ]) cube([ 17.5, 16.6, 5.2 ], center = true);
-        translate([ 0, 0, -0.8 + tolerance - 2.5 ]) cube([ 15, 15, 5 ], center = true);
+        translate([ 0, 0, -0.8 + tolerance - 7.5 ]) cube([ 15, 15, 15 ], center = true);
     }
 }
 
-difference()
+*difference()
 {
     cube([ 20, 20, 3 ]);
     translate([ 2.5, 2.5, 0 ])
     {
         translate([ 0, 0, -3 ]) kailh_choc_switch();
 
-        translate([ 7.5 - 3.8 + base_y / 2 + .05, 0.1, 3 ]) rotate([ 0, 0, 90 ]) kailh_hot_swap_choc(10);
+        translate([ 7.5 - 3.8 + base_y / 2 + .05, 0.1, 3 ]) rotate([ 0, 0, 90 ]) kailh_hotswap_choc(10);
     }
 }
 
